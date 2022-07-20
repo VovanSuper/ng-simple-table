@@ -24,7 +24,14 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "dev:watch": "run-p dev:server dev:client",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm.cmd run compile",
+    "pretest": "npm.cmd run compile",
+    "posttest": "npm.cmd run lint"
   },
   "private": true,
   "dependencies": {
@@ -45,10 +52,18 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.6",
+    "@angular-eslint/builder": "14.0.2",
+    "@angular-eslint/eslint-plugin": "14.0.2",
+    "@angular-eslint/eslint-plugin-template": "14.0.2",
+    "@angular-eslint/schematics": "14.0.2",
+    "@angular-eslint/template-parser": "14.0.2",
     "@angular/cli": "^14.0.6",
     "@angular/compiler-cli": "^14.0.0",
     "@types/jasmine": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "5.29.0",
+    "@typescript-eslint/parser": "5.29.0",
     "cross-env": "^7.0.3",
+    "eslint": "^8.18.0",
     "jasmine-core": "^4.1.0",
     "karma": "^6.3.0",
     "karma-chrome-launcher": "^3.1.0",
@@ -57,6 +72,8 @@
     "karma-jasmine-html-reporter": "^1.7.0",
     "nodemon": "^2.0.19",
     "npm-run-all": "^4.1.5",
-    "typescript": "~4.7.2"
+    "typescript": "~4.7.2",
+    "gts": "^3.1.0",
+    "@types/node": "^14.11.2"
   }
 }

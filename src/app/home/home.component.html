@@ -1,6 +1,5 @@
 <div class="mat-elevation-z8">
-
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 items-table">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 items-table">
     <!--- Note that these columns can be defined in any order.
       The actual rendered columns are set as a property on the row definition" -->
 
@@ -12,19 +11,19 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by name">Name</th>
       <td mat-cell *matCellDef="let element">{{element.name}}</td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="sku">
-      <th mat-header-cell *matHeaderCellDef>Sku</th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by SKU">Sku</th>
       <td mat-cell *matCellDef="let element">{{element.sku}}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="brandName">
-      <th mat-header-cell *matHeaderCellDef>BrandName</th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by brandName">BrandName</th>
       <td mat-cell *matCellDef="let el">{{el.brandName}}</td>
     </ng-container>
 

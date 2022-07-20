@@ -1,9 +1,10 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EMPTY, map, Observable, Subject, takeUntil } from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 import { IItem } from '../shared/models/item.interface';
 import { ITEMS_URL } from '../shared/utils/endpoints';
 import { placeholderUrlFixer } from '../shared/utils/placeholder-url-fix';
@@ -15,6 +16,8 @@ import { placeholderUrlFixer } from '../shared/utils/placeholder-url-fix';
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  
   destroy$$ = new Subject<void>();
   dataSource = new MatTableDataSource<IItem>();
 
@@ -28,6 +31,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnDestroy() {
