@@ -1,7 +1,9 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EMPTY, map, Observable } from 'rxjs';
+import { EMPTY, map, Observable, Subject, takeUntil } from 'rxjs';
 import { IItem } from '../shared/models/item.interface';
 import { ITEMS_URL } from '../shared/utils/endpoints';
 import { placeholderUrlFixer } from '../shared/utils/placeholder-url-fix';
@@ -11,14 +13,26 @@ import { placeholderUrlFixer } from '../shared/utils/placeholder-url-fix';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  items$: Observable<IItem[]> = EMPTY;
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  destroy$$ = new Subject<void>();
+  dataSource = new MatTableDataSource<IItem>();
+
   displayedColumns: string[] = ['id', 'name', 'sku', 'brandName', 'image'];
 
   constructor(private _http: HttpClient, private _router: Router, private _accRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.items$ = this._getData();
+  ngOnInit() {
+    this._getAll().pipe(takeUntil(this.destroy$$)).subscribe(items => this.dataSource.data = items);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnDestroy() {
+    this.destroy$$.next();
+    this.destroy$$.complete();
   }
 
   navToItem(row: any) {
@@ -31,6 +45,8 @@ export class HomeComponent implements OnInit {
     map(items => items.map(({ image, ...rest }) => ({ ...placeholderUrlFixer({ image }), ...rest }))),
     map(items => items as IItem[])
   );
+
+  private _getAll = () => this._getData(1, 200);
 
 }
 
