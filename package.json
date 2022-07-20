@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "dev": "nodemon server/",
+    "dev:server": "nodemon server/",
+    "dev:client": "ng serve --configuration=development --watch",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "dev:watch": "run-p dev watch",
+    "dev:watch": "run-p dev:server dev:client",
     "test": "ng test"
   },
   "private": true,

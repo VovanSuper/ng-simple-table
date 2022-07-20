@@ -1,3 +1,16 @@
 .items-table {
   width: 100%;
 }
+
+.item-img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin: .5rem 0;
+  vertical-align: middle;
+}
+
+.mat-row:hover {
+  background-color: rgba(203, 203, 203, 0.04);
+  cursor: pointer;
+}

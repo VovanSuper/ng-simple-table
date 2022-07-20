@@ -1,0 +1,16 @@
+<ng-container *ngIf="item$ | async as item; else noItemTmpl">
+  <mat-card class="item-card">
+    <mat-card-title-group>
+      <mat-card-title>{{item.availability}}</mat-card-title>
+      <mat-card-subtitle>{{item.brandName}}</mat-card-subtitle>
+      <img mat-card-md-image [src]="item.preview" >
+    </mat-card-title-group>
+    <mat-card-content>
+      {{item.name}} {{item.brandName}} -- {{item.availability}}
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-template #noItemTmpl>
+  <h2>No Such Item</h2>
+</ng-template>

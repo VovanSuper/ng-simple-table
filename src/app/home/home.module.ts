@@ -4,23 +4,23 @@ import { HomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MatModule } from '../shared/mat.module';
+import { ItemDetailsComponent } from './item-details/item-details.component';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     MatModule,
-    RouterModule.forChild([
-      {
-        path: '', component: HomeComponent
-      }
-    ])
+    HomeRoutingModule
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    ItemDetailsComponent
   ],
   exports: [
-    HomeComponent
+    HomeComponent,
+    ItemDetailsComponent
   ]
 })
 export class HomeModule { }
